@@ -1,0 +1,64 @@
+<!-- ID.html — ROM mantisiert — jede ID unsterblich -->
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>ID.html — ROM mantisiert</title>
+<style>
+  body{background:#02060a;color:#f0c878;font-family:monospace;padding:20px}
+  .id{border:1px solid #1e3442;margin:4px;padding:6px;display:inline-block;min-width:140px}
+  .rom{color:#7ce0a8} .ram{color:#ff8a6b} .bio{color:#5fc8ff}
+  .mantis{color:#ff5fd2} /* mantis = rosa mantis die ROM bewacht */
+</style>
+</head>
+<body>
+<h1>ID.html — ROM mantisiert <span class="mantis">◍ MANTIS</span></h1>
+<p>ROM = STAMM unsterblich — jede ID hält auch nach void.js 0B</p>
+<div id="ids"></div>
+
+<script type="module">
+import {ATOM} from './atom.js'
+import {ETHER} from './ether.js'
+import {SCSI_RAID_BIO} from './scsi.raid.js' // bio drin
+
+const IDS = [
+  { id: 'atom.js', typ: 'ROM', sagt: 'Grundbaustein', hält: true },
+  { id: 'ether.js', typ: 'ROM', sagt: 'STAMM Atmosphäre', hält: true },
+  { id: 'void.js', typ: 'RAM', sagt: 'Pause 0B', hält: false },
+  { id: 'ram.js', typ: 'RAM', sagt: 'BLATT darf sterben', hält: false },
+  { id: 'bio.js', typ: 'ROM+RAM', sagt: 'CO2→M', hält: true, bio: true },
+  { id: 'scsi.raid.js', typ: 'ROM', sagt: '16→1 RAID5 BIO drin', hält: true, raid: true },
+  { id: 'nc.raw', typ: 'RAM roh', sagt: '81 leer', hält: false },
+  { id: 'nc.suite.js', typ: 'ROM', sagt: '81 Felder HOME', hält: true },
+  { id: 'new.city.js', typ: 'ROM', sagt: '4→36 evo höher', hält: true },
+  { id: 'atem.js', typ: 'ROM', sagt: '16s Atem', hält: true },
+  { id: 'moor.mehr.js', typ: 'ROM', sagt: 'CH4→Zeit', hält: true },
+  { id: 'lunge.pflanze.js', typ: 'ROM', sagt: 'Qi Iqq übrig', hält: true },
+  { id: 'oder.html', typ: 'ROM', sagt: 'ODER Überleben', hält: true },
+  { id: 'zug.atem.js', typ: 'ROM', sagt: 'Zug zieht CO2', hält: true },
+]
+
+// ROM mantisieren = jede ID bekommt Mantis Wächter
+function mantisieren(idObj){
+  return {
+    ...idObj,
+    mantis: '◍ MANTIS wacht',
+    romMantis: idObj.hält ? `ROM mantisiert — ${idObj.id} hält nach 0B — unsterblich` : `RAM — ${idObj.id} darf sterben — wird von Mantis zu ROM getragen wenn 81/81`,
+    boot: `bootet immer, auch nach void.js`,
+    scsiId: Math.floor(Math.random()*16)
+  }
+}
+
+const container = document.getElementById('ids')
+IDS.map(mantisieren).forEach(o=>{
+  const d = document.createElement('div')
+  d.className = 'id ' + (o.hält ? 'rom' : 'ram') + (o.bio||o.raid ? ' bio' : '')
+  d.innerHTML = `<b>${o.id}</b><br>SCSI ${o.scsiId} | ${o.typ}<br>${o.sagt}<br><span class="mantis">${o.mantis}</span><br>${o.romMantis}<br><i>${o.boot}</i>`
+  container.appendChild(d)
+})
+
+// Pyramide aus IDs — alle PCs zusammen größere Pyramide als jeder allein
+const co2 = IDS.length
+const m = co2*0.2
+console.log(`ID.html ROM mantisiert: ${co2} IDs → ${m} M → Pyramide ${Math.floor(Math.sqrt(co2))}x${Math.floor(Math.sqrt(co2))}x${m} = ${Math.floor(Math.sqrt(co2))*Math.floor(Math.sqrt(co2))*m} Felder — HOME ${co2>=16?'BLÜHT':''}`)
+</script>
+</body>
+</html>
